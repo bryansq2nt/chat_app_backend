@@ -50,10 +50,13 @@ const signup = async (req,res) => {
 
     try {
         const emailExists = await User.findOne({email: user.email});
-        if(emailExists) return res.status(400).json({msg:"El correo ya esta registrado"});
+        if(emailExists) return res.status(400).json({error:"El correo ya esta registrado"});
         await user.save();
-        return res.status(200).json({
-            user
+        const token = await generateJWT( user.id );
+
+        return res.status(201).json({
+            user,
+            token
         });
 
     } catch (error) {
