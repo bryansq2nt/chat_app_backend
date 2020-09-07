@@ -10,6 +10,8 @@ io.on('connection', client => {
         return client.disconnect();
     }
 
+    client.broadcast.emit('user-connected',{uid});
+
     connectedUser(uid);
     client.join(uid);
 
@@ -19,7 +21,9 @@ io.on('connection', client => {
     });
     
     client.on('disconnect',() => {
+        client.broadcast.emit('user-disconnected',{uid});
         disconnectedUser(uid);
+        
     });
 
  

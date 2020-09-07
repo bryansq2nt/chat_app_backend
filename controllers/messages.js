@@ -10,10 +10,9 @@ const getChat = async (req,res) => {
         $or: [{ to: myId, from: fromId}, {to: fromId, from: myId}]
     })
     .skip(offset)
-    .limit(30)
+    .limit(15)
     .sort({createdAt: 'desc'});
 
-    console.log(messages);
     return res.status(200).json({
         messages
     });
