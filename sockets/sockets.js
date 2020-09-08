@@ -1,6 +1,7 @@
 const { io } = require('../server');
 const { checkJwt } = require('../helpers/jwt');
-const { connectedUser, disconnectedUser, saveMessage } = require('../controllers/socket');
+const { connectedUser, disconnectedUser  } = require('../controllers/socket');
+const { saveMessage, readAllMessages } = require('../controllers/chat');
 
 
 io.on('connection', client => {
@@ -18,6 +19,10 @@ io.on('connection', client => {
     client.on('private-message', async (payload) => {
         await saveMessage(payload);
         io.to(payload.to).emit('private-message', payload);
+    });
+
+    client.on('read-all-messages', async (payload) => {
+        await readAllMessages(payload);
     });
     
     client.on('disconnect',() => {

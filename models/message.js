@@ -2,6 +2,12 @@
 const { Schema, model } = require('mongoose');
 
 const MessageSchema = Schema({
+    chat: {
+        type: Schema.Types.ObjectId,
+        ref: 'Chat',
+        required : true
+    },
+
     from: {
         type: Schema.Types.ObjectId,
         ref: 'User',
@@ -17,6 +23,11 @@ const MessageSchema = Schema({
     message : {
         type: String,
         required: true
+    },
+
+    readed : {
+        type: Boolean,
+        default: false
     }
 
 

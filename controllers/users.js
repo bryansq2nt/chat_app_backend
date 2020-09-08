@@ -1,10 +1,10 @@
 
 const User = require('../models/user');
 
-const getOnlineUsers = async (req,res) =>{
+const getUsers = async (req,res) =>{
 
     const offset = Number(req.query.offset);
-    const users = await User
+    var users = await User
     .find({_id: { $ne: req.uid}})
     .sort('-online')
     .skip(offset)
@@ -17,5 +17,5 @@ const getOnlineUsers = async (req,res) =>{
 
 
 module.exports = {
-    getOnlineUsers
+    getUsers
 }
